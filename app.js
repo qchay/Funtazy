@@ -35,6 +35,10 @@ app.get("/", function (req, res) {
   res.render('index');
 });
 
+app.use(function(req, res, next){
+    res.status(404).render('error_404');
+});
+
 app.listen(3000, function () {
   console.log("Example app listening on port 3000!");
 });
