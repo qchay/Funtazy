@@ -1,18 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div>
-          <h1>Welcome to Fantasy Land</h1>
-        </div>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Router>
+          <React.Fragment>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </React.Fragment>
+        </Router>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
