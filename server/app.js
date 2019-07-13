@@ -3,8 +3,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 5000;
-const nodemailer = require("nodemailer");
-const cors = require("cors");
 // app.set("view engine", "ejs");
 // app.use("/assets", express.static("assets"));
 //
@@ -55,7 +53,6 @@ const cors = require("cors");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
 
 app.get("/api/hello", (req, res) => {
   res.send({ express: "Hello From Express" });
@@ -66,41 +63,6 @@ app.post("/api/world", (req, res) => {
   res.send(
     `I received your POST request. This is what you sent me: ${req.body.post}`
   );
-});
-
-app.get("/", (req, res) => {
-  res.send("Welcome to my api");
-});
-
-app.post("/api/v1", (req, res) => {
-  var data = req.body;
-
-  var smtpTransport = nodemailer.createTransport({
-    service: "Yahoo",
-    port: 465,
-    auth: {
-      user: "anthonyhamptom719",
-      pass: "ThisIsATest123"
-    }
-  });
-
-  var mailOptions = {
-    from: data.email,
-    to: "anthonyhamptom719@yahoo.com",
-    subject: "Node",
-    html: `<p>${data.name}</p>
-          <p>${data.email}</p>
-          <p>${data.message}</p>`
-  };
-
-  smtpTransport.sendMail(mailOptions, (error, response) => {
-    if (error) {
-      res.send(error);
-    } else {
-      res.send("Success");
-    }
-    smtpTransport.close();
-  });
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
