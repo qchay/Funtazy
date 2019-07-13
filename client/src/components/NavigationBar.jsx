@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import logo from "../logo.svg";
+import logo from "../img/logo.svg";
 
 class NavigationBar extends Component {
   render() {
