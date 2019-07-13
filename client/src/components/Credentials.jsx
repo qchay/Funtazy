@@ -7,7 +7,12 @@ class Credentials extends PureComponent {
     super(props);
     this.handlePublicClick = this.handlePublicClick.bind(this);
     this.handlePrivateClick = this.handlePrivateClick.bind(this);
-    this.state = { text: "Public", response: "", post: "", responseToPost: "" };
+    this.state = {
+      text: "Public",
+      response: "",
+      post: { leagueID: "", espnS2: "", swid: "" },
+      responseToPost: ""
+    };
   }
 
   handlePublicClick() {
@@ -63,6 +68,44 @@ class Credentials extends PureComponent {
     }
   };
 
+  handleClickLeagueID = e => {
+    let temp;
+    if (e.target.value !== this.state.post.leagueID) {
+      temp = {
+        leagueID: e.target.value,
+        espnS2: this.state.post.espnS2,
+        swid: this.state.post.swid
+      };
+    }
+    this.setState({ post: temp });
+
+    // this.setState({ post: e.target.value });
+  };
+
+  handleClickEspnS2 = e => {
+    let temp;
+    if (e.target.value !== this.state.post.espnS2) {
+      temp = {
+        leagueID: this.state.post.leagueID,
+        espnS2: e.target.value,
+        swid: this.state.post.swid
+      };
+    }
+    this.setState({ post: temp });
+  };
+
+  handleClickSWID = e => {
+    let temp;
+    if (e.target.value !== this.state.post.swid) {
+      temp = {
+        leagueID: this.state.post.leagueID,
+        espnS2: this.state.post.espnS2,
+        swid: e.target.value
+      };
+    }
+    this.setState({ post: temp });
+  };
+
   HandleForm = props => {
     const text = props.text;
     if (text === "Private") {
@@ -70,11 +113,23 @@ class Credentials extends PureComponent {
         <React.Fragment>
           <Form.Group controlId="espnS2">
             <Form.Label>espnS2</Form.Label>
-            <Form.Check type="text" placeholder="Enter espnS2" required />
+            <Form.Check
+              type="text"
+              value={this.state.post.espnS2}
+              onChange={this.handleClickEspnS2}
+              placeholder="Enter espnS2"
+              required
+            />
           </Form.Group>
           <Form.Group controlId="swid">
             <Form.Label>SWID</Form.Label>
-            <Form.Check type="text" placeholder="Enter SWID" required />
+            <Form.Check
+              type="text"
+              value={this.state.post.swid}
+              onChange={this.handleClickSWID}
+              placeholder="Enter SWID"
+              required
+            />
           </Form.Group>
         </React.Fragment>
       );
@@ -86,17 +141,23 @@ class Credentials extends PureComponent {
     return (
       <div>
         <this.HandleButton text={this.state.text} />
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="leagueID">
             <Form.Label>League ID</Form.Label>
-            <Form.Check type="Number" placeholder="Enter League ID" required />
+            <Form.Check
+              type="Number"
+              value={this.state.post.leagueID}
+              onChange={this.handleClickLeagueID}
+              placeholder="Enter League ID"
+              required
+            />
           </Form.Group>
           <this.HandleForm text={this.state.text} />
           <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
-        <p>{this.state.response}</p>
+        {/* <p>{this.state.response}</p>
         <form onSubmit={this.handleSubmit}>
           <p>
             <strong>Enter your espnS2:</strong>
@@ -108,7 +169,7 @@ class Credentials extends PureComponent {
           />
           <button type="submit">Submit</button>
         </form>
-        <p>{this.state.responseToPost}</p>
+        <p>{this.state.responseToPost}</p> */}
       </div>
     );
   }
