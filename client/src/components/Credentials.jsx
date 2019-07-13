@@ -16,7 +16,10 @@ class Credentials extends PureComponent {
   }
 
   handlePublicClick() {
-    this.setState({ text: "Public" });
+    var post = { ...this.state.post };
+    post.espnS2 = "";
+    post.swid = "";
+    this.setState({ text: "Public", post });
   }
 
   handlePrivateClick() {
@@ -69,41 +72,21 @@ class Credentials extends PureComponent {
   };
 
   handleClickLeagueID = e => {
-    let temp;
-    if (e.target.value !== this.state.post.leagueID) {
-      temp = {
-        leagueID: e.target.value,
-        espnS2: this.state.post.espnS2,
-        swid: this.state.post.swid
-      };
-    }
-    this.setState({ post: temp });
-
-    // this.setState({ post: e.target.value });
+    var post = { ...this.state.post };
+    post.leagueID = e.target.value;
+    this.setState({ post });
   };
 
   handleClickEspnS2 = e => {
-    let temp;
-    if (e.target.value !== this.state.post.espnS2) {
-      temp = {
-        leagueID: this.state.post.leagueID,
-        espnS2: e.target.value,
-        swid: this.state.post.swid
-      };
-    }
-    this.setState({ post: temp });
+    var post = { ...this.state.post };
+    post.espnS2 = e.target.value;
+    this.setState({ post });
   };
 
   handleClickSWID = e => {
-    let temp;
-    if (e.target.value !== this.state.post.swid) {
-      temp = {
-        leagueID: this.state.post.leagueID,
-        espnS2: this.state.post.espnS2,
-        swid: e.target.value
-      };
-    }
-    this.setState({ post: temp });
+    var post = { ...this.state.post };
+    post.swid = e.target.value;
+    this.setState({ post });
   };
 
   HandleForm = props => {
