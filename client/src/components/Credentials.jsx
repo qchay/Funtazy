@@ -42,7 +42,7 @@ class Credentials extends PureComponent {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const response = await fetch("/api/world", {
+    const response = await fetch("/api/credentials", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -50,7 +50,6 @@ class Credentials extends PureComponent {
       body: JSON.stringify({ post: this.state.post })
     });
     const body = await response.text();
-
     this.setState({ responseToPost: body });
   };
 
@@ -139,20 +138,8 @@ class Credentials extends PureComponent {
           <Button variant="primary" type="submit">
             Submit
           </Button>
+          {this.state.responseToPost}
         </Form>
-        {/* <p>{this.state.response}</p>
-        <form onSubmit={this.handleSubmit}>
-          <p>
-            <strong>Enter your espnS2:</strong>
-          </p>
-          <input
-            type="text"
-            value={this.state.post}
-            onChange={e => this.setState({ post: e.target.value })}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <p>{this.state.responseToPost}</p> */}
       </div>
     );
   }
