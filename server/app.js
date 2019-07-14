@@ -13,24 +13,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let leagueID, espnS2, swid;
 
 var myClient;
-// let data;
-// myClient.getBoxscoreForWeek({ seasonId: 2018, scoringPeriodId: 1, matchupPeriodId: 1 }).then((boxscores) => {
-//    data = boxscores;
-// });
+var authenticated = false;
 
 app.get("/week/:num", function(req, res) {
-  myClient
-    .getBoxscoreForWeek({
-      seasonId: 2018,
-      scoringPeriodId: Number(req.params.num),
-      matchupPeriodId: Number(req.params.num)
-    })
-    .then(boxscores => {
-      res.send(boxscores);
-    })
-    .catch(error => {
-      res.send(error);
-    });
+  try {
+    myClient
+      .getBoxscoreForWeek({
+        seasonId: 2018,
+        scoringPeriodId: Number(req.params.num),
+        matchupPeriodId: Number(req.params.num)
+      })
+      .then(boxscores => {
+        res.send(boxscores);
+      })
+      .catch(error => {
+        res.send(error);
+      });
+  } catch (err) {
+    res.send("You need to authenticate to retrieve results");
+  }
 });
 
 // app.get("/api", function (req, res) {
@@ -52,7 +53,7 @@ app.post("/api/credentials", (req, res) => {
   espnS2 = req.body.post.espnS2;
   swid = req.body.post.swid;
 
-  myClient = new Client({ leagueId: parseInt(leagueID) });
+  myClient = new Client({ leagueId: leagueID });
   myClient.setCookies({
     espnS2: espnS2,
     SWID: swid
