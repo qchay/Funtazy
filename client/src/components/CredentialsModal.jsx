@@ -35,16 +35,8 @@ class CredentialsModal extends Component {
             <Modal.Title>Credentials</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Credentials />
+            <Credentials handleClose={this.handleClose} />
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={this.handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
         </Modal>
       </>
     );

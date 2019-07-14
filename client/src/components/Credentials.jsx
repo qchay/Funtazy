@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 
 class Credentials extends PureComponent {
   constructor(props) {
@@ -135,10 +136,18 @@ class Credentials extends PureComponent {
             />
           </Form.Group>
           <this.HandleForm text={this.state.text} />
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-          {this.state.responseToPost}
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.props.handleClose}>
+              Close
+            </Button>
+            <Button
+              variant="primary"
+              type="submit"
+              // onClick={this.props.handleClose}
+            >
+              Submit
+            </Button>
+          </Modal.Footer>
         </Form>
       </div>
     );

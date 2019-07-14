@@ -27,7 +27,7 @@ app.get("/week/:num", function(req, res) {
         res.send(boxscores);
       })
       .catch(error => {
-        res.send(error);
+        res.send("You do not have access");
       });
   } catch (err) {
     res.send("You need to authenticate to retrieve results");
@@ -58,6 +58,7 @@ app.post("/api/credentials", (req, res) => {
     espnS2: espnS2,
     SWID: swid
   });
+  console.log(req.body);
   res.send(
     `I received your POST request. This is what you sent me: LeagueID:${leagueID} espnS2:${espnS2} swid:${swid}`
   );
