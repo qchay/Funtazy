@@ -6,9 +6,11 @@ import Modal from "react-bootstrap/Modal";
 class Credentials extends PureComponent {
   constructor(props) {
     super(props);
-    this.handlePublicClick = this.handlePublicClick.bind(this);
-    this.handlePrivateClick = this.handlePrivateClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
     this.state = {
+      isPublic: true,
       text: "Public",
       response: "",
       post: { leagueID: "", espnS2: "", swid: "" },
@@ -16,15 +18,15 @@ class Credentials extends PureComponent {
     };
   }
 
-  handlePublicClick() {
-    var post = { ...this.state.post };
-    post.espnS2 = "";
-    post.swid = "";
-    this.setState({ text: "Public", post });
-  }
-
-  handlePrivateClick() {
-    this.setState({ text: "Private" });
+  handleClick() {
+    if (!this.state.isPublic) {
+      var post = { ...this.state.post };
+      post.espnS2 = "";
+      post.swid = "";
+      this.setState({ text: "Public", post, isPublic: true });
+    } else {
+      this.setState({ text: "Private", isPublic: false });
+    }
   }
 
   componentDidMount() {
@@ -54,40 +56,15 @@ class Credentials extends PureComponent {
     this.setState({ responseToPost: body });
   };
 
-  HandleButton = props => {
-    const text = props.text;
-    if (text === "Public") {
-      return (
-        <Button onClick={this.handlePrivateClick} variant="outline-primary">
-          {this.state.text}
-        </Button>
-      );
-    } else {
-      return (
-        <Button onClick={this.handlePublicClick} variant="outline-primary">
-          {this.state.text}
-        </Button>
-      );
-    }
-  };
-
-  handleClickLeagueID = e => {
-    var post = { ...this.state.post };
-    post.leagueID = e.target.value;
-    this.setState({ post });
-  };
-
-  handleClickEspnS2 = e => {
-    var post = { ...this.state.post };
-    post.espnS2 = e.target.value;
-    this.setState({ post });
-  };
-
-  handleClickSWID = e => {
-    var post = { ...this.state.post };
-    post.swid = e.target.value;
-    this.setState({ post });
-  };
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      post: {
+        ...this.state.post,
+        [name]: value
+      }
+    });
+  }
 
   HandleForm = props => {
     const text = props.text;
@@ -98,8 +75,9 @@ class Credentials extends PureComponent {
             <Form.Label>espnS2</Form.Label>
             <Form.Check
               type="text"
+              name="espnS2"
               value={this.state.post.espnS2}
-              onChange={this.handleClickEspnS2}
+              onChange={this.handleChange}
               placeholder="Enter espnS2"
               required
             />
@@ -108,8 +86,9 @@ class Credentials extends PureComponent {
             <Form.Label>SWID</Form.Label>
             <Form.Check
               type="text"
+              name="swid"
               value={this.state.post.swid}
-              onChange={this.handleClickSWID}
+              onChange={this.handleChange}
               placeholder="Enter SWID"
               required
             />
@@ -123,14 +102,17 @@ class Credentials extends PureComponent {
   render() {
     return (
       <div>
-        <this.HandleButton text={this.state.text} />
+        <Button onClick={this.handleClick} variant="outline-primary">
+          {this.state.text}
+        </Button>{" "}
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="leagueID">
             <Form.Label>League ID</Form.Label>
             <Form.Check
               type="Number"
+              name="leagueID"
               value={this.state.post.leagueID}
-              onChange={this.handleClickLeagueID}
+              onChange={this.handleChange}
               placeholder="Enter League ID"
               required
             />
