@@ -2,12 +2,11 @@ import React, { PureComponent } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import InfoSettings from "./InfoSettings";
 
 class Credentials extends PureComponent {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       isPublic: true,
@@ -18,7 +17,7 @@ class Credentials extends PureComponent {
     };
   }
 
-  handleClick() {
+  handleClick = () => {
     if (!this.state.isPublic) {
       var post = { ...this.state.post };
       post.espnS2 = "";
@@ -27,7 +26,7 @@ class Credentials extends PureComponent {
     } else {
       this.setState({ text: "Private", isPublic: false });
     }
-  }
+  };
 
   componentDidMount() {
     this.callApi()
@@ -56,7 +55,7 @@ class Credentials extends PureComponent {
     this.setState({ responseToPost: body });
   };
 
-  handleChange(event) {
+  handleChange = event => {
     const { name, value } = event.target;
     this.setState({
       post: {
@@ -64,7 +63,7 @@ class Credentials extends PureComponent {
         [name]: value
       }
     });
-  }
+  };
 
   HandleForm = props => {
     const text = props.text;
