@@ -28,6 +28,47 @@ class Credentials extends PureComponent {
     }
   };
 
+  handleInfo = e => {
+    if (e === "LeagueID") {
+      return (
+        <div>
+          <ul>
+            <li>Go to your ESPN fantasy football league home page</li>
+            <li>Copy & paste the value after "leagueId=" from the URL</li>
+          </ul>
+        </div>
+      );
+    } else if (e === "EspnS2") {
+      return (
+        <div>
+          <ul>
+            <li>
+              Go to <a href="http://www.espn.com">ESPN</a>
+            </li>
+            <li>Right Click > Inspect > Application > Cookies > espn.com</li>
+            <li>Filter "espn_s2"</li>
+            <li>Copy & paste value</li>
+          </ul>
+        </div>
+      );
+    } else if (e === "SWID") {
+      return (
+        <div>
+          <ul>
+            <li>
+              Go to <a href="http://www.espn.com">ESPN</a>
+            </li>
+            <li>Right Click > Inspect > Application > Cookies > espn.com</li>
+            <li>Filter "SWID"</li>
+            <li>Copy & paste value</li>
+          </ul>
+          <strong>Note: </strong>If more than one SWID values, pick SWID value
+          with .espn.com domain
+        </div>
+      );
+    }
+  };
+
   componentDidMount() {
     this.callApi()
       .then(res => this.setState({ response: res.express }))
@@ -72,25 +113,31 @@ class Credentials extends PureComponent {
         <React.Fragment>
           <Form.Group controlId="espnS2">
             <Form.Label>espnS2</Form.Label>
-            <Form.Check
-              type="text"
-              name="espnS2"
-              value={this.state.post.espnS2}
-              onChange={this.handleChange}
-              placeholder="Enter espnS2"
-              required
-            />
+            <div className="input-group">
+              <Form.Check
+                type="text"
+                name="espnS2"
+                value={this.state.post.espnS2}
+                onChange={this.handleChange}
+                placeholder="Enter espnS2"
+                required
+              />
+              <InfoSettings id="EspnS2" text={this.handleInfo("EspnS2")} />
+            </div>
           </Form.Group>
           <Form.Group controlId="swid">
             <Form.Label>SWID</Form.Label>
-            <Form.Check
-              type="text"
-              name="swid"
-              value={this.state.post.swid}
-              onChange={this.handleChange}
-              placeholder="Enter SWID"
-              required
-            />
+            <div className="input-group">
+              <Form.Check
+                type="text"
+                name="swid"
+                value={this.state.post.swid}
+                onChange={this.handleChange}
+                placeholder="Enter SWID"
+                required
+              />
+              <InfoSettings id="SWID" text={this.handleInfo("SWID")} />
+            </div>
           </Form.Group>
         </React.Fragment>
       );
@@ -103,18 +150,21 @@ class Credentials extends PureComponent {
       <div>
         <Button onClick={this.handleClick} variant="outline-primary">
           {this.state.text}
-        </Button>{" "}
+        </Button>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="leagueID">
             <Form.Label>League ID</Form.Label>
-            <Form.Check
-              type="Number"
-              name="leagueID"
-              value={this.state.post.leagueID}
-              onChange={this.handleChange}
-              placeholder="Enter League ID"
-              required
-            />
+            <div className="input-group">
+              <Form.Check
+                type="Number"
+                name="leagueID"
+                value={this.state.post.leagueID}
+                onChange={this.handleChange}
+                placeholder="Enter League ID"
+                required
+              />
+              <InfoSettings id="LeagueID" text={this.handleInfo("LeagueID")} />
+            </div>
           </Form.Group>
           <this.HandleForm text={this.state.text} />
           <Modal.Footer>
