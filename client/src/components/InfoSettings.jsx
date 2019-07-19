@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FaQuestionCircle } from "react-icons/fa";
+
 import {
   Button,
   UncontrolledPopover,
@@ -10,8 +12,8 @@ class InfoSettings extends Component {
   render() {
     return (
       <div>
-        <Button id={this.props.id} type="button">
-          <i className="fas fa-info-circle"></i>
+        <Button color="#ff5c5c" id={this.props.id} type="button">
+          <FaQuestionCircle />
         </Button>
 
         <UncontrolledPopover
