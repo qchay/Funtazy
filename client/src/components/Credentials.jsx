@@ -174,7 +174,17 @@ class Credentials extends PureComponent {
             <Button
               variant="primary"
               type="submit"
-              // onClick={this.props.handleClose}
+              onClick={
+                this.state.text === "Public"
+                  ? this.state.post.leagueID === ""
+                    ? null
+                    : this.props.handleClose
+                  : this.state.post.leagueID === "" ||
+                    this.state.post.espnS2 === "" ||
+                    this.state.post.swid === ""
+                  ? null
+                  : this.props.handleClose
+              }
             >
               Submit
             </Button>
