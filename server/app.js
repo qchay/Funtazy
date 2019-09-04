@@ -19,7 +19,7 @@ app.get("/week/:num", function(req, res) {
   try {
     myClient
       .getBoxscoreForWeek({
-        seasonId: 2018,
+        seasonId: 2019,
         scoringPeriodId: Number(req.params.num),
         matchupPeriodId: Number(req.params.num)
       })
